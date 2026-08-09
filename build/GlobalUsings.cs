@@ -1,0 +1,13 @@
+global using System;
+global using System.Threading;
+global using System.Threading.Tasks;
+global using System.Collections.Generic;
+global using System.Linq;
+global using static Fallout.Common.EnvironmentInfo;
+global using static Fallout.Common.IO.PathConstruction;
+global using static Fallout.Common.Tools.DotNet.DotNetTasks;
+global using static Fallout.Common.Tools.Git.GitTasks;
+global using static Fallout.Common.Tooling.ProcessTasks;
+global using static Tools.GoTasks;
+global using System.Text.RegularExpressions;
+global using OperatingSystem = Tools.PrerequisiteManager.OperatingSystem;

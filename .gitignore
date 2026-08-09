@@ -1,0 +1,11 @@
+bin/
+obj/
+Artifacts/
+Output/
+/packages/
+riderModule.iml
+/_ReSharper.Caches/
+/.fallout/temp
+*.user
+*.DotSettings
+/.idea
