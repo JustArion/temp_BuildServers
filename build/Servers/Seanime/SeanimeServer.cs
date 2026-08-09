@@ -26,12 +26,12 @@ public class SeanimeServer(OperatingSystem targetSystems) : FalloutBuildServerBa
     Target Build_Linux => _ => _
         .DependsOn(PrepareBuild)
         .OnlyWhenDynamic(() => ShouldServeLinux)
-        .DependsOn(LinuxBuildServer.Restore);
+        .DependsOn(LinuxBuildServer.Build);
 
     Target Build_Native => _ => _
         .DependsOn(PrepareBuild)
         .OnlyWhenDynamic(() => ShouldServeNative)
-        .DependsOn(LinuxBuildServer.Restore);
+        .DependsOn(LinuxBuildServer.Build);
     
     // A pre-build optimization, if we're serving linux & native (win, mac), we check if we have Git installed, then copy over the contents to both, we do this so we don't need to git clone twice if building double
     Target PrepareBuild => _ => _
