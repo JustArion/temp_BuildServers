@@ -24,9 +24,20 @@
     "ExecutableTarget": {
       "type": "string",
       "enum": [
+        "All",
         "Build",
         "Clean",
-        "Restore"
+        "Mpv",
+        "Mpv_Clean",
+        "Mpv_Compile",
+        "Mpv_Package",
+        "Mpv_Restore",
+        "Seanime",
+        "Seanime_Clean",
+        "Seanime_Compile",
+        "Seanime_Package",
+        "Seanime_Restore",
+        "Seanime_Teardown"
       ]
     },
     "Verbosity": {
@@ -107,17 +118,21 @@
   "allOf": [
     {
       "properties": {
-        "Configuration": {
-          "type": "string",
-          "enum": [
-            "Debug",
-            "Release"
-          ],
-          "description": "Configuration to build - Default is 'Debug' (local) or 'Release' (server)"
+        "InstallPrerequisites": {
+          "type": "boolean",
+          "description": "Allow the build to install missing toolchains (and a package manager) on this machine"
         },
-        "Solution": {
-          "type": "string",
-          "description": "Path to a solution file that is automatically loaded"
+        "TargetOs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "Linux",
+              "MacOS",
+              "Windows"
+            ]
+          },
+          "description": "Operating systems to build for, e.g. --target-os windows linux. Defaults to linux plus the host OS"
         }
       }
     },

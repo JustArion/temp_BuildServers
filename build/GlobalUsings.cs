@@ -10,4 +10,5 @@ global using static Fallout.Common.Tools.Git.GitTasks;
 global using static Fallout.Common.Tooling.ProcessTasks;
 global using static Tools.GoTasks;
 global using System.Text.RegularExpressions;
+global using Models;
 global using OperatingSystem = Tools.PrerequisiteManager.OperatingSystem;

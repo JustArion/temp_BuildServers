@@ -18,9 +18,7 @@ public partial class NodeTasks : ToolTasks, IRequirePathTool
         Action<OutputType, string>? logger = null,
         Func<IProcess, object>? exitHandler = null)
     {
-        if (!PrerequisiteManager.IsToolInstalled(PathExecutable))
-            PrerequisiteManager.InstallTool(PathExecutable, "Node.js");
-        
+        // Presence is asserted up front by PrerequisiteManager.RequireTool — see GoTasks.Go.
         return new NodeTasks().Run(asyncArguments, workingDirectory, environmentVariables, timeout, logOutput, logInvocation,
             logger, exitHandler);
     }
@@ -67,9 +65,7 @@ public partial class NpmTasks : ToolTasks, IRequirePathTool
         Action<OutputType, string>? logger = null,
         Func<IProcess, object>? exitHandler = null)
     {
-        if (!PrerequisiteManager.IsToolInstalled(PathExecutable))
-            PrerequisiteManager.InstallTool(PathExecutable, "Node Package Manager");
-        
+        // Presence is asserted up front by PrerequisiteManager.RequireTool — see GoTasks.Go.
         return new NpmTasks().Run(asyncArguments, workingDirectory, environmentVariables, timeout, logOutput, logInvocation,
             logger, exitHandler);
     }

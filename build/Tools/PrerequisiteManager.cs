@@ -6,13 +6,18 @@ namespace Tools;
 
 public class PrerequisiteManager
 {
+    // Explicit powers of two: the previous 0/1/2 values made `HasFlag(Windows)` always true and
+    // made `MacOS | Linux` indistinguishable from a third member.
     [Flags]
     public enum OperatingSystem
     {
-        Windows,
-        MacOS,
-        Linux
+        Windows = 1 << 0,
+        MacOS = 1 << 1,
+        Linux = 1 << 2
     }
+
+    /// <summary>The operating system this build is currently running on.</summary>
+    public static OperatingSystem HostOperatingSystem => GetOperatingSystem();
 
     [SuppressMessage("ReSharper", "ConvertIfStatementToReturnStatement")]
     private static OperatingSystem GetOperatingSystem()
@@ -107,14 +112,24 @@ public class PrerequisiteManager
         return (major, minor, patch);
     }
 
-    public void Require(string toolName, string displayName)
+    /// <summary>
+    /// Ensures <paramref name="toolName"/> is present. Installing a toolchain — and on Windows a
+    /// package manager along with it — is a change to the developer's machine, so it only happens
+    /// when <paramref name="mayInstall"/> says it may.
+    /// </summary>
+    public static void RequireTool(string toolName, string displayName, bool mayInstall, string versionArg = "--version")
     {
-        if (IsToolInstalled(toolName))
+        if (IsToolInstalled(toolName, versionArg))
             return;
-        
+
+        if (!mayInstall)
+            throw new InvalidOperationException(
+                $"{displayName} is not installed. Install it and retry, or pass --install-prerequisites to let the build install it for you.");
+
         InstallTool(toolName, displayName);
     }
-    
+
+
     /// <summary>Install a tool based on the current OS</summary>
     public static void InstallTool(string toolName, string displayName)
     {
