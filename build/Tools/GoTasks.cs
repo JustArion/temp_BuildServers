@@ -20,9 +20,9 @@ public partial class GoTasks : ToolTasks, IRequirePathTool
         Action<OutputType, string>? logger = null,
         Func<IProcess, object>? exitHandler = null)
     {
-        if (!PrerequisiteManager.IsToolInstalled(PathExecutable, "version"))
-            PrerequisiteManager.InstallTool(PathExecutable, "Go");
-
+        // No auto-install here: this runs on every Go invocation, including a plain version probe,
+        // and would silently install Scoop + Go on the host. Presence is asserted up front instead,
+        // via PrerequisiteManager.RequireTool.
         var task = new GoTasks();
         
         return task.Run(asyncArguments, workingDirectory, environmentVariables, timeout, logOutput, logInvocation,
